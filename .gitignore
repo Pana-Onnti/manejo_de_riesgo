@@ -3,7 +3,9 @@
 .venv
 .idea
 .env*
-
+.env
+env
+env*
 # Cache directories.
 __pycache__
 testfolder

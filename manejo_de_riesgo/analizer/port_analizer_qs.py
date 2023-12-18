@@ -9,43 +9,48 @@ def get_last_two_values(row):
     return pd.Series(values, index=[0, 1])
 
 
-indicators_list = ['Start Period',
-                   'End Period',
-                   'Risk-Free Rate',
-                   'Time in Market',
-                   'Cumulative Return',
-                   'CAGR%',
-                   'Sharpe',
-                   'Prob. Sharpe Ratio',
-                   'Sortino',
-                   'Sortino/√2',
-                   'Omega',
-                   'Max Drawdown',
-                   'Longest DD Days',
-                   'Gain/Pain Ratio',
-                   'Gain/Pain (1M)',
-                   'Payoff Ratio',
-                   'Profit Factor',
-                   'Common Sense Ratio',
-                   'CPC Index',
-                   'Tail Ratio',
-                   'Outlier Win Ratio',
-                   'Outlier Loss Ratio',
-                   'MTD',
-                   '3M',
-                   '6M',
-                   'YTD',
-                   '1Y',
-                   '3Y (ann.)',
-                   '5Y (ann.)',
-                   '10Y (ann.)',
-                   'All-time (ann.)',
-                   'Avg. Drawdown',
-                   'Avg. Drawdown Days',
-                   'Recovery Factor',
-                   'Ulcer Index',
-                   'Serenity Index']
+class PortfolioItem:
+    StartPeriod = "StartPeriod"
+    EndPeriod = "EndPeriod"
+    RiskFreeRate = "RiskFreeRate"
+    TimeInMarket = "TimeInMarket"
+    CumulativeReturn = "CumulativeReturn"
+    CAGRPercentage = "CAGRPercentage"
+    Sharpe = "Sharpe"
+    ProbSharpeRatio = "ProbSharpeRatio"
+    Sortino = "Sortino"
+    SortinoSquareRoot2 = "SortinoSquareRoot2"
+    Omega = "Omega"
+    MaxDrawdown = "MaxDrawdown"
+    LongestDDDays = "LongestDDDays"
+    GainPainRatio = "GainPainRatio"
+    GainPain1M = "GainPain1M"
+    PayoffRatio = "PayoffRatio"
+    ProfitFactor = "ProfitFactor"
+    CommonSenseRatio = "CommonSenseRatio"
+    CPCIndex = "CPCIndex"
+    TailRatio = "TailRatio"
+    OutlierWinRatio = "OutlierWinRatio"
+    OutlierLossRatio = "OutlierLossRatio"
+    MTD = "MTD"
+    r3M = "r3M"
+    r6M = "r6M"
+    YTD = "YTD"
+    r1Y = "r1Y"
+    r3Yann = "r3Yann"
+    r5Yann = "r5Yann"
+    r10Yann = "r10Yann"
+    Alltimeann = "Alltimeann"
+    AvgDrawdown = "AvgDrawdown"
+    AvgDrawdownDays = "AvgDrawdownDays"
+    RecoveryFactor = "RecoveryFactor"
+    Ulcer_Index = "Ulcer_Index"
+    Serenity_Index = "Serenity_Index"
 
+# Crear una lista de propiedades sin los tipados
+propiedades = [attr for attr in dir(PortfolioItem) if not callable(getattr(PortfolioItem, attr)) and not attr.startswith("__")]
+
+indicators_list = propiedades
 
 def generate_report(daily_returns):
     output_buffer = io.StringIO()
@@ -78,7 +83,3 @@ def generate_report(daily_returns):
         report_df = report_df.reset_index(drop=True)
         report_df = report_df.set_index('Indicator')
         return report_df
-
-# %%
-
-#%%
