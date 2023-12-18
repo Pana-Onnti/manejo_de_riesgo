@@ -1,10 +1,10 @@
 from datetime import date
 from typing import List
 
-from portfolio.data_procesing.f_yfinance import YFinanceDataFetcher
-from portfolio.factory.port_hc_factory import PortfolioOptimizer
-from portfolio.analizer.port_analizer_own import calculate_portfolio_returns
-from portfolio.analizer.port_analizer_qs import generate_report
+from data_procesing.f_yfinance import YFinanceDataFetcher
+from factory.port_hc_factory import PortfolioOptimizer
+from analizer.port_analizer_own import calculate_portfolio_returns
+from analizer.port_analizer_qs import generate_report
 from models import PortfolioUpdate, PortfolioResponse, PortfolioItem
 from fastapi import FastAPI, HTTPException
 from exception import (YFinanceDataFetchError, PortfolioOptimizationError, TestingDataFetchError,
@@ -30,7 +30,6 @@ def update_portfolio(update_data: PortfolioUpdate):
     try:
         stock = Portfolio(assets, train_start, train_end, test_start, test_end).update_portfolio()
         report = generate_report(stock)
-        print(report)
         return report
 
     except YFinanceDataFetchError as e:
